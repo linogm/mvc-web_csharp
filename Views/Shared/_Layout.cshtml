@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Banco de tiempo</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Banco de tiempo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Mi Perfil", "MyPerfil", "Perfil")</li>
+                    <li>@Html.ActionLink("Anuncios", "Index", "Anuncios")</li>
+                    <li>@Html.ActionLink("Compras", "MyCompras", "Compras")</li>
+                    <li>@Html.ActionLink("Log out", "Logout", "Logout")</li>
+                </ul>
+                @*<ul class="nav navbar-right">
+                    <li>@Html.TextBoxFor(d=>d.Saldo)</li>
+                </ul>*@
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - .NET Masters (P6 - Producto 3)</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+@*@using P6_P3.Models;
+    @functions{
+        public string giveName()
+        {
+            p6dbEntities db = new p6dbEntities();
+            Usuarios usuario = new Usuarios();
+            usuario = (Usuarios)Session["Users"];
+            return usuario.FirstName;
+        }
+    }*@

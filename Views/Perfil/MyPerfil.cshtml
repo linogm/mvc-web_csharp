@@ -1,0 +1,45 @@
+﻿@model P6_P3.Models.TableViewModels.UsuariosTableViewModel
+
+@{
+    ViewBag.Title = "MyPerfil";
+}
+
+<h2>Mi Perfil</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm("MyPerfil", "Perfil", FormMethod.Post, new { role = "form", @class = "" }))
+        {
+            @*@Html.AntiForgeryToken()
+
+            @Html.ValidationMessage("error", new { @class = "text-danger" })*@
+
+            @*@Html.HiddenFor(d => d.IdUser)*@
+
+            @Html.LabelFor(d => d.IdUser)
+            @Html.TextBoxFor(d => d.IdUser, new { @class = "form-control" })
+
+            @Html.LabelFor(d => d.Pass)
+            @Html.TextBoxFor(d => d.Pass, new { @class = "form-control" })
+
+            @Html.LabelFor(d => d.FirstName)
+            @Html.TextBoxFor(d => d.FirstName, new { @class = "form-control" })
+
+            @Html.LabelFor(d => d.LastName)
+            @Html.TextBoxFor(d => d.LastName, new { @class = "form-control" })
+
+            @Html.LabelFor(d => d.Telefono)
+            @Html.TextBoxFor(d => d.Telefono, new { @class = "form-control" })
+
+            @Html.LabelFor(d => d.Email)
+            @Html.TextBoxFor(d => d.Email, new { @class = "form-control" })
+
+            @Html.LabelFor(d => d.Saldo)
+            @Html.TextBoxFor(d => d.Saldo, new { @class = "form-control" })
+
+            @*<div style="text-align:right;">
+                <input type="submit" class="btn btn-success" value="Guardar" />
+            </div>*@
+        }
+    </div>
+</div>

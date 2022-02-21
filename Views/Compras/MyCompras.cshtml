@@ -1,0 +1,68 @@
+﻿@model List<P6_P3.Models.TableViewModels.AnunciosTableViewModel>
+@{
+    ViewBag.Title = "MyCompras";
+}
+
+<h2>Mis Compras</h2>
+<!--<div class="row">
+    <div class="col-md-12">
+        <input type="text" class="alert-info"--> @*onclick="document.location.href='@Url.Content("~/Anuncios/Add")'"*@ <!--value="Mi Saldo: ." />
+
+    </div>
+</div>-->
+<br>
+
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>IdAnuncio</th>
+                <th>Fecha</th>
+                <th>Descripcion</th>
+                <th>Horas</th>
+                <th>Usuario</th>
+                <th>UsuarioID</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td> @item.IdAnuncio </td>
+            <td> @item.Fecha </td>
+            <td> @item.Descripcion </td>
+            <td> @item.Horas </td>
+            <td> @item.UsuarioName </td>
+            <td> @item.Usuario1 </td>
+        </tr>
+            }
+
+        </table>
+
+    </div>
+
+</div>
+
+
+@*<script>
+        function getSaldo() {
+
+
+            @{
+                using P6_P3.Models;
+                P6_P3.Models.p6dbEntities db = new P6_P3.Models.p6dbEntities();
+                P6_P3.Models.Usuarios oUser = new P6_P3.Models.Usuarios();
+                oUser = (P6_P3.Models.Usuarios)Session["Users"];
+                double saldo = oUser.Saldo;
+                return saldo;
+            }
+
+
+        }
+    </script>*@
+
+@*<script>
+        function jsSaldo()
+        {
+            url = "@Url.Content("~/Anuncios/Saldo")";
+        }
+</script>*@

@@ -1,0 +1,66 @@
+﻿@model List<P6_P3.Models.TableViewModels.AnunciosTableViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Anuncios</h2>
+<div class="row">
+    <div class="col-md-12">
+        <input type="button" class="btn btn-primary" onclick="document.location.href='@Url.Content("~/Anuncios/MyIndex")'" value="Mis Anuncios"/>
+
+    </div>
+</div>
+<br>
+
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>IdAnuncio</th>
+                <th>Fecha</th>
+                <th>Descripcion</th>
+                <th>Horas</th>
+                <th>Usuario</th>
+                <th>UsuarioID</th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td> @item.IdAnuncio </td>
+                <td> @item.Fecha </td>
+                <td> @item.Descripcion </td>
+                <td> @item.Horas </td>
+                <td> @item.UsuarioName </td>
+                <td> @item.Usuario1 </td>
+                <td>
+                    @*<input onclick="document.location.href='@Url.Content("~/Anuncios/MyCompras/"+item.IdAnuncio)'" type="button" value="Solicitar" class="btn btn-primary" />*@
+                    <input onclick="jsComprar(@item.IdAnuncio);" type="button" value="Solicitar" class="btn btn-danger" />
+                </td>
+            </tr>
+            }
+
+        </table >
+    </div >
+</div >
+
+<script>
+    function jsComprar(id)
+    {
+
+        if (confirm("¿Confirma que desea solicitar el servicio?"))
+        {
+            url = "@Url.Content("~/Anuncios/Comprar")" + "/" + id;
+
+            $.post(url, function (data)
+            {
+                if (data == "1") {
+                    document.location.href = "@Url.Content("~/Compras/MyCompras")"
+                } else {
+                    alert("Saldo insuficiente")
+                }
+            })
+        }
+    }
+</script>
