@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="p6dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Anuncios">
+          <Key>
+            <PropertyRef Name="IdAnuncio" />
+          </Key>
+          <Property Name="IdAnuncio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Horas" Type="real" Nullable="false" />
+          <Property Name="Usuario1" Type="int" Nullable="false" />
+          <Property Name="Usuario2" Type="int" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cState">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="oSesion">
+          <Key>
+            <PropertyRef Name="IdSesion" />
+          </Key>
+          <Property Name="IdSesion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Valor" Type="int" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pass" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Telefono" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Saldo" Type="real" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Anuncios__Estado__628FA481">
+          <End Role="cState" Type="Self.cState" Multiplicity="1" />
+          <End Role="Anuncios" Type="Self.Anuncios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cState">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Anuncios">
+              <PropertyRef Name="Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Anuncios__Usuari__60A75C0F">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Anuncios" Type="Self.Anuncios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Anuncios">
+              <PropertyRef Name="Usuario1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Anuncios__Usuari__619B8048">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Anuncios" Type="Self.Anuncios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Anuncios">
+              <PropertyRef Name="Usuario2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="p6dbModelStoreContainer">
+          <EntitySet Name="Anuncios" EntityType="Self.Anuncios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cState" EntityType="Self.cState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="oSesion" EntityType="Self.oSesion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Anuncios__Estado__628FA481" Association="Self.FK__Anuncios__Estado__628FA481">
+            <End Role="cState" EntitySet="cState" />
+            <End Role="Anuncios" EntitySet="Anuncios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Anuncios__Usuari__60A75C0F" Association="Self.FK__Anuncios__Usuari__60A75C0F">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Anuncios" EntitySet="Anuncios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Anuncios__Usuari__619B8048" Association="Self.FK__Anuncios__Usuari__619B8048">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Anuncios" EntitySet="Anuncios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="p6dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="p6dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Anuncios" EntityType="p6dbModel.Anuncios" />
+          <EntitySet Name="cState" EntityType="p6dbModel.cState" />
+          <EntitySet Name="oSesion" EntityType="p6dbModel.oSesion" />
+          <EntitySet Name="Usuarios" EntityType="p6dbModel.Usuarios" />
+          <AssociationSet Name="FK__Anuncios__Estado__628FA481" Association="p6dbModel.FK__Anuncios__Estado__628FA481">
+            <End Role="cState" EntitySet="cState" />
+            <End Role="Anuncios" EntitySet="Anuncios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Anuncios__Usuari__60A75C0F" Association="p6dbModel.FK__Anuncios__Usuari__60A75C0F">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Anuncios" EntitySet="Anuncios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Anuncios__Usuari__619B8048" Association="p6dbModel.FK__Anuncios__Usuari__619B8048">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Anuncios" EntitySet="Anuncios" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Anuncios">
+          <Key>
+            <PropertyRef Name="IdAnuncio" />
+          </Key>
+          <Property Name="IdAnuncio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Horas" Type="Single" Nullable="false" />
+          <Property Name="Usuario1" Type="Int32" Nullable="false" />
+          <Property Name="Usuario2" Type="Int32" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cState" Relationship="p6dbModel.FK__Anuncios__Estado__628FA481" FromRole="Anuncios" ToRole="cState" />
+          <NavigationProperty Name="Usuarios" Relationship="p6dbModel.FK__Anuncios__Usuari__60A75C0F" FromRole="Anuncios" ToRole="Usuarios" />
+          <NavigationProperty Name="Usuarios1" Relationship="p6dbModel.FK__Anuncios__Usuari__619B8048" FromRole="Anuncios" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="cState">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Estado" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Anuncios" Relationship="p6dbModel.FK__Anuncios__Estado__628FA481" FromRole="cState" ToRole="Anuncios" />
+        </EntityType>
+        <EntityType Name="oSesion">
+          <Key>
+            <PropertyRef Name="IdSesion" />
+          </Key>
+          <Property Name="IdSesion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Valor" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pass" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Saldo" Type="Single" Nullable="false" />
+          <NavigationProperty Name="Anuncios" Relationship="p6dbModel.FK__Anuncios__Usuari__60A75C0F" FromRole="Usuarios" ToRole="Anuncios" />
+          <NavigationProperty Name="Anuncios1" Relationship="p6dbModel.FK__Anuncios__Usuari__619B8048" FromRole="Usuarios" ToRole="Anuncios" />
+        </EntityType>
+        <Association Name="FK__Anuncios__Estado__628FA481">
+          <End Type="p6dbModel.cState" Role="cState" Multiplicity="1" />
+          <End Type="p6dbModel.Anuncios" Role="Anuncios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cState">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Anuncios">
+              <PropertyRef Name="Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Anuncios__Usuari__60A75C0F">
+          <End Type="p6dbModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="p6dbModel.Anuncios" Role="Anuncios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Anuncios">
+              <PropertyRef Name="Usuario1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Anuncios__Usuari__619B8048">
+          <End Type="p6dbModel.Usuarios" Role="Usuarios" Multiplicity="0..1" />
+          <End Type="p6dbModel.Anuncios" Role="Anuncios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Anuncios">
+              <PropertyRef Name="Usuario2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="p6dbModelStoreContainer" CdmEntityContainer="p6dbEntities">
+          <EntitySetMapping Name="Anuncios">
+            <EntityTypeMapping TypeName="p6dbModel.Anuncios">
+              <MappingFragment StoreEntitySet="Anuncios">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Usuario2" ColumnName="Usuario2" />
+                <ScalarProperty Name="Usuario1" ColumnName="Usuario1" />
+                <ScalarProperty Name="Horas" ColumnName="Horas" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdAnuncio" ColumnName="IdAnuncio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cState">
+            <EntityTypeMapping TypeName="p6dbModel.cState">
+              <MappingFragment StoreEntitySet="cState">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="oSesion">
+            <EntityTypeMapping TypeName="p6dbModel.oSesion">
+              <MappingFragment StoreEntitySet="oSesion">
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="IdSesion" ColumnName="IdSesion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="p6dbModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

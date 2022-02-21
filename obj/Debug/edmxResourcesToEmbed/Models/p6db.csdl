@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="p6dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="p6dbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Anuncios" EntityType="p6dbModel.Anuncios" />
+    <EntitySet Name="cState" EntityType="p6dbModel.cState" />
+    <EntitySet Name="oSesion" EntityType="p6dbModel.oSesion" />
+    <EntitySet Name="Usuarios" EntityType="p6dbModel.Usuarios" />
+    <AssociationSet Name="FK__Anuncios__Estado__628FA481" Association="p6dbModel.FK__Anuncios__Estado__628FA481">
+      <End Role="cState" EntitySet="cState" />
+      <End Role="Anuncios" EntitySet="Anuncios" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Anuncios__Usuari__60A75C0F" Association="p6dbModel.FK__Anuncios__Usuari__60A75C0F">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Anuncios" EntitySet="Anuncios" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Anuncios__Usuari__619B8048" Association="p6dbModel.FK__Anuncios__Usuari__619B8048">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Anuncios" EntitySet="Anuncios" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Anuncios">
+    <Key>
+      <PropertyRef Name="IdAnuncio" />
+    </Key>
+    <Property Name="IdAnuncio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Horas" Type="Single" Nullable="false" />
+    <Property Name="Usuario1" Type="Int32" Nullable="false" />
+    <Property Name="Usuario2" Type="Int32" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="cState" Relationship="p6dbModel.FK__Anuncios__Estado__628FA481" FromRole="Anuncios" ToRole="cState" />
+    <NavigationProperty Name="Usuarios" Relationship="p6dbModel.FK__Anuncios__Usuari__60A75C0F" FromRole="Anuncios" ToRole="Usuarios" />
+    <NavigationProperty Name="Usuarios1" Relationship="p6dbModel.FK__Anuncios__Usuari__619B8048" FromRole="Anuncios" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="cState">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Estado" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Anuncios" Relationship="p6dbModel.FK__Anuncios__Estado__628FA481" FromRole="cState" ToRole="Anuncios" />
+  </EntityType>
+  <EntityType Name="oSesion">
+    <Key>
+      <PropertyRef Name="IdSesion" />
+    </Key>
+    <Property Name="IdSesion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Valor" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IdUser" />
+    </Key>
+    <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Pass" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Saldo" Type="Single" Nullable="false" />
+    <NavigationProperty Name="Anuncios" Relationship="p6dbModel.FK__Anuncios__Usuari__60A75C0F" FromRole="Usuarios" ToRole="Anuncios" />
+    <NavigationProperty Name="Anuncios1" Relationship="p6dbModel.FK__Anuncios__Usuari__619B8048" FromRole="Usuarios" ToRole="Anuncios" />
+  </EntityType>
+  <Association Name="FK__Anuncios__Estado__628FA481">
+    <End Type="p6dbModel.cState" Role="cState" Multiplicity="1" />
+    <End Type="p6dbModel.Anuncios" Role="Anuncios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cState">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Anuncios">
+        <PropertyRef Name="Estado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Anuncios__Usuari__60A75C0F">
+    <End Type="p6dbModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+    <End Type="p6dbModel.Anuncios" Role="Anuncios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="Anuncios">
+        <PropertyRef Name="Usuario1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Anuncios__Usuari__619B8048">
+    <End Type="p6dbModel.Usuarios" Role="Usuarios" Multiplicity="0..1" />
+    <End Type="p6dbModel.Anuncios" Role="Anuncios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="Anuncios">
+        <PropertyRef Name="Usuario2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

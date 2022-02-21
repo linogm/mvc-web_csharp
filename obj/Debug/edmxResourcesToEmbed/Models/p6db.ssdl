@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="p6dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Anuncios">
+    <Key>
+      <PropertyRef Name="IdAnuncio" />
+    </Key>
+    <Property Name="IdAnuncio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Horas" Type="real" Nullable="false" />
+    <Property Name="Usuario1" Type="int" Nullable="false" />
+    <Property Name="Usuario2" Type="int" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="cState">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Estado" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="oSesion">
+    <Key>
+      <PropertyRef Name="IdSesion" />
+    </Key>
+    <Property Name="IdSesion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Valor" Type="int" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IdUser" />
+    </Key>
+    <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Pass" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Telefono" Type="int" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Saldo" Type="real" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Anuncios__Estado__628FA481">
+    <End Role="cState" Type="Self.cState" Multiplicity="1" />
+    <End Role="Anuncios" Type="Self.Anuncios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cState">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Anuncios">
+        <PropertyRef Name="Estado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Anuncios__Usuari__60A75C0F">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+    <End Role="Anuncios" Type="Self.Anuncios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="Anuncios">
+        <PropertyRef Name="Usuario1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Anuncios__Usuari__619B8048">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+    <End Role="Anuncios" Type="Self.Anuncios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="Anuncios">
+        <PropertyRef Name="Usuario2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="p6dbModelStoreContainer">
+    <EntitySet Name="Anuncios" EntityType="Self.Anuncios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cState" EntityType="Self.cState" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="oSesion" EntityType="Self.oSesion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Anuncios__Estado__628FA481" Association="Self.FK__Anuncios__Estado__628FA481">
+      <End Role="cState" EntitySet="cState" />
+      <End Role="Anuncios" EntitySet="Anuncios" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Anuncios__Usuari__60A75C0F" Association="Self.FK__Anuncios__Usuari__60A75C0F">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Anuncios" EntitySet="Anuncios" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Anuncios__Usuari__619B8048" Association="Self.FK__Anuncios__Usuari__619B8048">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Anuncios" EntitySet="Anuncios" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
